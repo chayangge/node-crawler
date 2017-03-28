@@ -1,0 +1,27 @@
+{
+  "name": "node-crawler",
+  "version": "1.0.0",
+  "description": "a nodeJS crawler",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chayangge/node-crawler.git"
+  },
+  "author": "chayangge",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chayangge/node-crawler/issues"
+  },
+  "homepage": "https://github.com/chayangge/node-crawler#readme",
+  "dependencies": {
+    "async": "^2.2.0",
+    "cheerio": "^0.22.0",
+    "eventproxy": "^0.3.5",
+    "sleep": "^5.1.0",
+    "superagent": "^3.5.1",
+    "system-sleep": "^1.3.0"
+  }
+}
