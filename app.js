@@ -24,45 +24,31 @@ function getPage(url) {
         .set('Accept-Encoding', 'gzip, deflate, sdch')
         .set('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8')
         .end(function(err, result) {
-            fs.access("result", function(err) {
-                if (err != null) {
-                    fs.mkdir(wechat_id, function(err, files) {
-                        fs.writeFile('./result/aaa.html', result.text);
-                    });
-                } else {
-                    fs.mkdir(wechat_id, function(err, files) {
-                        // fs.writeFile('./result/aaa.html', result.text);
+            fs.mkdir(wechat_id, function(err, files) {
+                var $ = cheerio.load(result.text, {
+                    decodeEntities: false
+                });
+                var pages = $(".w4_5 > span > a"); //.html();
+                var articles = $(".question_link");
 
-                        var $ = cheerio.load(result.text, {
-                            decodeEntities: false
-                        });
-                        var pages = $(".w4_5 > span > a"); //.html();
-                        var articles = $(".question_link");
+                articles.each(function(id, article) {
+                    var url = $(article).attr("href");
+                    if (articleList[url] == null) {
+                        articleList[url] = "http://chuansong.me" + url;
+                        sleep(1000)
+                        getArticle("http://chuansong.me" + url)
+                    }
+                });
 
-                        articles.each(function(id, article) {
-                            var url = $(article).attr("href");
-                            if (articleList[url] == null) {
-                                articleList[url] = "http://chuansong.me" + url;
-                                sleep(1000)
-                                getArticle("http://chuansong.me" + url)
-                            }
-                        });
-                        // console.log(articleList)
-                        // send()
+                pages.each(function(id, element) {
+                    var url = $(element).attr("href");
+                    if (pageList[url] == null) {
+                        pageList[url] = "http://chuansong.me" + url;
 
-                        pages.each(function(id, element) {
-                            var url = $(element).attr("href");
-                            if (pageList[url] == null) {
-                                pageList[url] = "http://chuansong.me" + url;
-
-                                sleep(1100)
-                                getPage("http://chuansong.me" + url);
-                            }
-                        });
-                    });
-                    // fs.writeFile(wechat_id + '/aaa.html', result.text);
-
-                }
+                        sleep(1100)
+                        getPage("http://chuansong.me" + url);
+                    }
+                });
             });
         });
 }
