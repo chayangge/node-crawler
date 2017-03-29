@@ -1,5 +1,5 @@
 # node-crawler
-基于node的小爬虫
+基于node的小爬虫，这里是[Python版](https://github.com/chayangge/python-crawler)，抓取来源[传送门](http://chuansong.me/)
 ## 使用方法
 clone并安装：
 ``` javascript
